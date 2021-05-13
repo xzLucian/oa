@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.DepartmentMapper">
+    <!--获取全部的部门-->
+    <select id="getAllDept" resultType="Department">
+        select * from department where DEPARTMENT_NAME LIKE CONCAT('%',#{keyword},'%')
+    </select>
+<!--添加部门-->
+    <insert id="addDept" parameterType="Department">
+        INSERT into department(DEPARTMENT_ID,DEPARTMENT_NAME,DEPARTMENT_NUMBER,DEPARTMENT_TELEPHONE) VALUES(#{departmentId},#{departmentName},#{departmentNumber},#{departmentTelephone});
+    </insert>
+<!--删除部门-->
+    <delete id="delDept">
+        delete from department where DEPARTMENT_ID = #{departmentId}
+    </delete>
+<!--根据ID查询部门信息-->
+    <select id="getDeptById" resultType="Department">
+        select * from department where DEPARTMENT_ID = #{departmentId}
+    </select>
+<!--修改部门信息-->
+    <update id="updateDept" parameterType="Department">
+    update department set DEPARTMENT_ID=#{departmentId},DEPARTMENT_NAME=#{departmentName},DEPARTMENT_NUMBER=#{departmentNumber},DEPARTMENT_TELEPHONE=#{departmentTelephone} where DEPARTMENT_ID = #{departmentId}
+    </update>
+</mapper>

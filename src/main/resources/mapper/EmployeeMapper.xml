@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.EmployeeMapper">
+    <!--Employee登录-->
+    <select id="login" parameterType="Employee" resultType="Employee">
+        select * from employee where username=#{username} and password=#{password}
+    </select>
+    <!--查询所有用户信息-->
+    <select id="getAllEmp" resultType="Employee" parameterType="java.lang.String">
+        select * from employee where username LIKE CONCAT('%',#{keyword},'%')
+    </select>
+    <!--添加员工-->
+    <insert id="addEmp" parameterType="Employee">
+        insert into employee(EMPLOYEE_ID,USERNAME,PASSWORD,ROLE_ID,EMPLOYEE_NAME,SEX,BIRTHDAY,POLITICS_STATAS,MARRIAGE,ADDRESS,EMAIL,PHONE,ID_NUMBER,BANKCARD)VALUES(#{employeeId},#{username},#{password},#{roleId},#{employeeName},#{sex},#{birthday},#{politicsStatas},#{marriage},#{address},#{email},#{phone},#{idNumber},#{bankcard})
+    </insert>
+    <!--删除员工-->
+    <delete id="delEmp">
+        delete from employee where id = #{id}
+    </delete>
+<!--根据ID查询员工信息-->
+    <select id="searchEmpById" resultType="Employee">
+        select * from employee where id = #{id};
+    </select>
+<!--修改员工信息-->
+    <update id="doUpdateEmp" parameterType="Employee">
+        update employee set username=#{username},sex=#{sex},birthday=#{birthday},phone=#{phone},address=#{address},role_id=#{roleId} where id=#{id}
+    </update>
+</mapper>

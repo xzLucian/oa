@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ModuleMapper">
+<!--根据ID加载模块-->
+  <select id="loadModuleByRoleId" resultType="Module">
+    select * from module where MODULE_ID in (SELECT MODULE_ID from role_module where ROLE_ID = #{roleId});
+  </select>
+<!--查询所有模块-->
+  <select id="getAllModule" resultType="Module">
+    select * from module
+  </select>
+<!--模糊查询模块-->
+  <select id="searchmodule" resultType="Module" parameterType="java.lang.String">
+    select * from module where MODULE_NAME LIKE CONCAT('%',#{keyword},'%')
+  </select>
+<!--添加模块-->
+  <insert id="addModule" parameterType="Module">
+    insert into module (MODULE_ID,MODULE_NAME,MODULE_MURL,MODULE_STATE,MODULE_CREATETIME) VALUES (#{moduleId},#{moduleName},#{moduleMurl},#{moduleState},#{moduleCreatetime})
+  </insert>
+<!--删除模块-->
+  <delete id="delModule">
+    delete from module where MODULE_ID = #{moduleId}
+  </delete>
+<!--根据ID查询对应的模块信息-->
+  <select id="getModuleById" resultType="Module">
+    select * from module where MODULE_ID = #{moduleId}
+  </select>
+<!--修改模块信息-->
+  <update id="updateModule" parameterType="Module">
+    update module set MODULE_ID=#{moduleId},MODULE_NAME=#{moduleName},MODULE_MURL=#{moduleMurl},MODULE_STATE=#{moduleState},MODULE_CREATETIME=#{moduleCreatetime} where MODULE_ID=#{moduleId}
+  </update>
+</mapper>

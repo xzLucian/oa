@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.RoleModuleMapper">
+	<delete id="delModuleByRoleId">
+		delete from role_module where role_id = #{roleId}
+	</delete>
+	
+	<insert id="addModuleRole" parameterType="list">
+		insert into role_module(role_id,module_id) values
+		<foreach collection="mids" separator="," item="mid">
+			(#{roleId},#{mid})
+		</foreach>
+	</insert>
+</mapper>
